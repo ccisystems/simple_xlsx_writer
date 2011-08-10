@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    simple_xlsx_writer (0.5.3)
+      fast_xs (>= 0.7.3)
+      rubyzip (>= 0.9.4)
+
 GEM
   specs:
     fast_xs (0.8.0)
@@ -7,5 +14,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  fast_xs (>= 0.7.3)
-  rubyzip (>= 0.9.4)
+  simple_xlsx_writer!
