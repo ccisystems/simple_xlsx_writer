@@ -27,7 +27,11 @@ ends
     row = ["<row r=\"#{@row_ndx}\">"]
     arry.each_with_index do |value, col_ndx|
       kind, ccontent, cstyle = Sheet.format_field_and_type_and_style value
-      row << "<c r=\"#{Sheet.column_index(col_ndx)}#{@row_ndx}\" t=\"#{kind.to_s}\" s=\"#{cstyle}\">#{ccontent}</c>"
+      if kind == :formula
+        row << "<c r=\"#{Sheet.column_index(col_ndx)}#{@row_ndx}\">#{ccontent}</c>"
+      else
+        row << "<c r=\"#{Sheet.column_index(col_ndx)}#{@row_ndx}\" t=\"#{kind.to_s}\" s=\"#{cstyle}\">#{ccontent}</c>"
+      end
     end
     row << "</row>"
     @row_ndx += 1
@@ -36,7 +40,11 @@ ends
 
   def self.format_field_and_type_and_style value
     if value.is_a?(String)
-      [:inlineStr, "<is><t>#{value.to_xs}</t></is>", 5]
+      if value =~ /^=/
+        [:formula, "<f>#{value}</f>", 0]
+      else
+        [:inlineStr, "<is><t>#{value.to_xs}</t></is>", 5]
+      end
     elsif value.is_a?(BigDecimal)
       [:n, "<v>#{value.to_s('f')}</v>", 4]
     elsif value.is_a?(Float)
