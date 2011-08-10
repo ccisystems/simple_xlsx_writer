@@ -1,0 +1,11 @@
+GEM
+  specs:
+    fast_xs (0.8.0)
+    rubyzip (0.9.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fast_xs (>= 0.7.3)
+  rubyzip (>= 0.9.4)
